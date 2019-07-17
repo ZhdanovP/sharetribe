@@ -37,21 +37,39 @@ RUN set -ex \
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 7.8.0
 
-RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
-  && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
-  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
-  && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-  && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
-  && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
-  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+RUN apt-get update && apt-get install -yq \
+    sudo \
+    git \
+    tmux \
+    wget \
+    zsh \
+    vim \
+    fonts-powerline \
+    meld
 
-  # Add helper for decrypting secure environment variables
-RUN curl -sfSL \
-  -o /usr/sbin/secure-environment \
-  "https://github.com/convox/secure-environment/releases/download/v0.0.1/secure-environment" \
-  && echo "4e4c1ed98f1ff4518c8448814c74d6d05ba873879e16817cd6a02ee5013334ea */usr/sbin/secure-environment" \
-  | sha256sum -c - \
-  && chmod 755 /usr/sbin/secure-environment
+RUN mkdir -p /home/app/marketplace
+
+# ZSH config
+RUN git clone https://github.com/robbyrussell/oh-my-zsh /opt/oh-my-zsh && \
+    cp /opt/oh-my-zsh/templates/zshrc.zsh-template .zshrc && \
+    cp -r /opt/oh-my-zsh .oh-my-zsh && \
+    cp /opt/oh-my-zsh/templates/zshrc.zsh-template /home/app/.zshrc && \
+    cp -r /opt/oh-my-zsh /home/app/.oh-my-zsh && \
+    sed  "s/robbyrussell/bira/" -i /home/app/.zshrc && \
+    echo "PROMPT=\$(echo \$PROMPT | sed 's/%m/%f\$IMAGE_NAME/g')" >> /home/app/.zshrc && \
+    echo "RPROMPT=''" >> /home/app/.zshrc
+
+# Sublime instalation
+ARG SUBLIME_BUILD="${SUBLIME_BUILD:-3207}"
+RUN wget --no-check-certificate  https://download.sublimetext.com/sublime-text_build-"${SUBLIME_BUILD}"_amd64.deb --no-check-certificate && \
+    dpkg -i sublime-text_build-"${SUBLIME_BUILD}"_amd64.deb
+
+RUN wget --no-check-certificate -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
+RUN echo "deb http://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
+RUN apt-get update && apt-get install -y sublime-merge
+
+RUN apt-get --assume-yes install nodejs
+RUN apt-get --assume-yes install npm
 
 #
 # Sharetribe
@@ -64,58 +82,42 @@ RUN apt-get install -y nginx
 ENV BUNDLE_BIN=
 RUN gem install bundler
 
-# Run as non-privileged user
-RUN useradd -m -s /bin/bash app \
-	&& mkdir /opt/app /opt/app/client /opt/app/log /opt/app/tmp && chown -R app:app /opt/app
+WORKDIR /home/app
 
-WORKDIR /opt/app
-
-COPY Gemfile /opt/app
-COPY Gemfile.lock /opt/app
+COPY Gemfile /home/app
+COPY Gemfile.lock /home/app
 
 ENV RAILS_ENV production
 
-USER app
-
 RUN bundle install --deployment --without test,development
 
-COPY package.json /opt/app/
-COPY client/package.json /opt/app/client/
-COPY client/customloaders/customfileloader /opt/app/client/customloaders/customfileloader
+COPY package.json /home/app
+COPY client/package.json /home/app/client/
+COPY client/customloaders/customfileloader /home/app/client/customloaders/customfileloader
 
 ENV NODE_ENV production
 ENV NPM_CONFIG_LOGLEVEL error
 ENV NPM_CONFIG_PRODUCTION true
 
-RUN npm install
-
-COPY . /opt/app
+COPY . /home/app
 
 EXPOSE 3000
 
 CMD ["script/startup.sh"]
-ENTRYPOINT ["script/entrypoint.sh"]
+#ENTRYPOINT ["script/entrypoint.sh"]
 
 #
 # Assets
 #
 
-# Fix ownership of directories that need to be writable
-USER root
-RUN mkdir -p \
-          app/assets/webpack \
-          public/assets \
-          public/webpack \
-    && chown -R app:app \
-       app/assets/javascripts \
-       app/assets/webpack \
-       client/app/ \
-       public/assets \
-       public/webpack
-USER app
 
 # If assets.tar.gz file exists in project root
 # assets will be extracted from there.
 # Otherwise, assets will be compiled with `rake assets:precompile`.
 # Useful for caching assets between builds.
-RUN script/prepare-assets.sh
+#RUN script/prepare-assets.sh
+
+COPY script/entrypoint.sh /usr/bin/
+WORKDIR /home/app
+ENTRYPOINT ["/bin/bash", "-e", "/usr/bin/entrypoint.sh"]
+CMD ["/bin/zsh"]
