@@ -1,0 +1,15 @@
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/bindex-0.6.0/ext/skiptrace
+/usr/local/bin/ruby -I /usr/local/lib/ruby/2.6.0 -r ./siteconf20190908-74-gddvze.rb extconf.rb
+creating Makefile
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/bindex-0.6.0/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/bindex-0.6.0/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/cruby.so
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/bindex-0.6.0/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20190908-74-13ikrig/skiptrace

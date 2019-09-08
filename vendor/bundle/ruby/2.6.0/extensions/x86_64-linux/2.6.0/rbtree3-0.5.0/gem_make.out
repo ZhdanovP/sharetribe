@@ -1,0 +1,48 @@
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/rbtree3-0.5.0
+/usr/local/bin/ruby -I /usr/local/lib/ruby/2.6.0 -r ./siteconf20190908-10462-116t46y.rb extconf.rb
+checking for rb_exec_recursive() in ruby.h... yes
+creating Makefile
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/rbtree3-0.5.0
+make "DESTDIR=" clean
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/rbtree3-0.5.0
+make "DESTDIR="
+compiling dict.c
+compiling rbtree.c
+In file included from rbtree.c:5:0:
+rbtree.c: In function 'pp_block':
+rbtree.c:33:22: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define DICT(rbtree) ((rbtree_t*)RBTREE(rbtree))->dict
+                      ^
+/usr/local/include/ruby-2.6.0/ruby/ruby.h:2599:35: note: in definition of macro 'rb_funcall'
+  const VALUE rb_funcall_args[] = {__VA_ARGS__}; \
+                                   ^~~~~~~~~~~
+rbtree.c:37:25: note: in expansion of macro 'DICT'
+ #define CONTEXT(rbtree) DICT(rbtree)->dict_context
+                         ^~~~
+rbtree.c:1467:30: note: in expansion of macro 'CONTEXT'
+     rb_funcall(pp, id_pp, 1, CONTEXT(rbtree));
+                              ^~~~~~~
+rbtree.c:33:22: note: (near initialization for 'rb_funcall_args[0]')
+ #define DICT(rbtree) ((rbtree_t*)RBTREE(rbtree))->dict
+                      ^
+/usr/local/include/ruby-2.6.0/ruby/ruby.h:2599:35: note: in definition of macro 'rb_funcall'
+  const VALUE rb_funcall_args[] = {__VA_ARGS__}; \
+                                   ^~~~~~~~~~~
+rbtree.c:37:25: note: in expansion of macro 'DICT'
+ #define CONTEXT(rbtree) DICT(rbtree)->dict_context
+                         ^~~~
+rbtree.c:1467:30: note: in expansion of macro 'CONTEXT'
+     rb_funcall(pp, id_pp, 1, CONTEXT(rbtree));
+                              ^~~~~~~
+rbtree.c: At top level:
+cc1: warning: unrecognized command line option '-Wno-self-assign'
+cc1: warning: unrecognized command line option '-Wno-parentheses-equality'
+cc1: warning: unrecognized command line option '-Wno-constant-logical-operand'
+cc1: warning: unrecognized command line option '-Wno-cast-function-type'
+linking shared-object rbtree.so
+
+current directory: /home/developer/sharetribe/vendor/bundle/ruby/2.6.0/gems/rbtree3-0.5.0
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 rbtree.so ./.gem.20190908-10462-oywehx
