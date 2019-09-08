@@ -1,0 +1,16 @@
+os:
+  - linux
+  - osx
+language: ruby
+cache: bundler
+rvm:
+  - 2.4.1
+  - 2.5
+  - 2.6
+  - jruby-9.2.0.0
+addons:
+  apt:
+    packages:
+      - chromium-browser
+      - libgconf-2-4
+  chrome: stable
