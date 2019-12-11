@@ -11,19 +11,20 @@ gem 'sass-rails', '~> 5.0.6'
 gem 'compass-rails', '~> 3.0.2'
 
 gem 'jquery-rails', '~> 4.3.1'
-
+gem 'rubocop-performance'
+gem 'daemons', '~> 1.3.1'
 # Bundle the extra gems:
 
 # gem 'heroku' install the Heroku toolbelt (https://toolbelt.heroku.com/) instead (as gem had some problems)
 gem "passenger", '~> 6.0.1'
-
+gem 'thin'
 gem "mysql2", '0.4.10'
 gem "bcrypt", '3.1.12'
 gem 'haml', '~> 5.0.4'
 gem 'sass', '~> 3.4.24'
 gem 'rack-attack', '~> 6.0.0'
 gem 'rest-client', '~> 2.0.2'
-
+gem 'puma', '~> 4.2.1'
 gem 'paperclip', '~> 5.2.1'
 gem 'delayed_paperclip', '~> 3.0.1'
 
@@ -145,7 +146,6 @@ group :test do
 
   gem 'fake_stripe', git: 'https://github.com/ithouse/fake_stripe.git', ref: '42b9dd09a1db3fb2b7ec11809ac93647f178a115'
   gem 'poltergeist'
-  gem 'puma'
   gem 'webdrivers'
 end
 

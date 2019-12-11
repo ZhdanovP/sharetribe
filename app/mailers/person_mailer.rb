@@ -39,7 +39,9 @@ class PersonMailer < ActionMailer::Base
       sending_params = {:to => recipient.confirmed_notification_emails_to,
                         :subject => t("emails.new_message.you_have_a_new_message", :sender_name => PersonViewUtils.person_display_name(message.sender, community)),
                         :from => community_specific_sender(community)}
-
+      print sending_params
+      print "____________________"                    
+      print message
       premailer_mail(sending_params)
     end
   end
@@ -284,7 +286,7 @@ class PersonMailer < ActionMailer::Base
     @no_settings = true
     @resource = email.person
     @confirmation_token = email.confirmation_token
-    @host = community.full_domain
+    @host = community.full_domain   # Sultan's edit :) Deletec co
     @show_branding_info = !PlanService::API::Api.plans.get_current(community_id: community.id).data[:features][:whitelabel]
     with_locale(email.person.locale, community.locales.map(&:to_sym), community.id) do
       email.update_attribute(:confirmation_sent_at, Time.now)

@@ -1,7 +1,7 @@
 require_relative './common.rb'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
+  config.force_ssl = true
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests.
   # If live updates for translations are in use, caching is set to false.
