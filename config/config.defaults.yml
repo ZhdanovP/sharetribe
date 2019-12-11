@@ -4,7 +4,7 @@ default: &default_settings
   # If you are running on localhost, you can write here "lvh.me:3000" (which redirects to localhost port 3000)
   # The community subdomains will be added to this top domain.
   # NOTE: Do not include http(s) here, or subdomains, just the top level domain, like "sharetribe.com" for example
-  domain: "lvh.me:3000"
+  domain: "lvh.me:5000"
 
   # A comma separated string of trusted proxies. If you host your
   # application behind proxies this configuration allows
@@ -148,7 +148,7 @@ default: &default_settings
 
   # If you want to force all use to be SSL secured (https://) you can set this to true
   # Note that you can set this value separately to each enironment below (e.g. if your developing)
-  always_use_ssl: false
+  always_use_ssl: true
 
   # If always_use_ssl is set to true, optionally set HTTP Strict Transport
   # Security header with this max-age. Set to 0 to disable HSTS.
@@ -161,8 +161,8 @@ default: &default_settings
 
   # Facebook Connect
   # If you want to use Facebook connect, enter the credentials here
-  fb_connect_id:
-  fb_connect_secret:
+  fb_connect_id: 1098138520528167
+  fb_connect_secret: 185583fca0fc8048f0fe32b9b239e849
 
   # You can use Airbrake to track errors if you want.
   # You need to register an account and get an API key from airbrake.io
@@ -177,19 +177,19 @@ default: &default_settings
   # If using SMTP, uncomment corresponding lines and enter your information.
   # the SMPT lines below contain example of using Gmail, but you can use any SMTP
   # For the domain part you can enter HELO domain, if needed. Google for more info. :)
-  mail_delivery_method: sendmail
+  mail_delivery_method: smtp
 
-  # smtp_email_address: "smtp.gmail.com"
-  # smtp_email_port: 587
-  # smtp_email_user_name: "<YOUR_GMAIL_USERNAME>@gmail.com"
-  # smtp_email_password: "<YOUR_GMAIL_PASSWORD>"
-  # smtp_email_domain: "localhost"
+  smtp_email_address: "smtp.gmail.com"
+  smtp_email_port: 587
+  smtp_email_user_name: "storage.box.ru@gmail.com"
+  smtp_email_password: "sultan_pavel_2019"
+  smtp_email_domain: "localhost"
 
   # This will be the from field in the mails sent from Sharetribe
-  sharetribe_mail_from_address: "your-team@example.com"
+  sharetribe_mail_from_address: "balagan.astana@gmail.com"
 
   # The address where the notifications of feedbacks from Sharetribe UI are sent
-  feedback_mailer_recipients:  'admins@example.com'
+  feedback_mailer_recipients:  'balagan.astana@gmail.com'
 
   grid_listings_limit: 24
   map_listings_limit: 150
@@ -294,8 +294,8 @@ default: &default_settings
   support_email: support@example.com
 
   # Knowledge base
-  knowledge_base_url: http://www.example.com/knowledgebase
-  display_knowledge_base_articles: false
+  knowledge_base_url: http://0.0.0.0:5000/knowledgebase
+  display_knowledge_base_articles: true
 
   # External plan service connection
   # The connection details hosted Sharetribe uses to connect to external subscription management system.
@@ -359,7 +359,7 @@ default: &default_settings
 
   # Default Google Maps API key for communities that don't specify one
   # Default is not to use Google Maps API key
-  google_maps_key:
+  google_maps_key: "AIzaSyBFznMilzLuG75WOw29bXH_N9pRXZdL5Uk"
 
   # Path or URL for landing page assets.
   #
@@ -496,7 +496,7 @@ production: &production_settings
 
   eager_load: true
 
-  log_level: INFO
+  log_level: DEBUG
   stripe_private_key_pattern: "\\Ask_live_.{24,200}\\z"
   stripe_publishable_key_pattern: "\\Apk_live_.{24,200}\\z"
 
@@ -512,10 +512,10 @@ development:
   <<: *default_settings
 
   # Usually it's easier to run development without SSL
-  always_use_ssl: false
+  always_use_ssl: true
 
   # Skip email confirmation
-  skip_email_confirmation: true
+  skip_email_confirmation: false
 
   secret_key_base: "fd1af50b59b5e27776941b3205f92aca0f704c2252225cf93e3d97ae53f4774d25736cbdb19c1580839a2f68e15009209227e966003f53932c1bcc5d65616948"
 

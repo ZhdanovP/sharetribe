@@ -4,7 +4,7 @@ MoneyRails.configure do |config|
 
   # To set the default currency
   #
-  config.default_currency = :eur
+  config.default_currency = :rub
 
   # Set default bank object
   #
@@ -25,7 +25,7 @@ MoneyRails.configure do |config|
 
   # Default ActiveRecord migration configuration values for columns:
   #
-  config.amount_column = { prefix: '',           # column name prefix
+  config.amount_column = { prefix: 'RUB',           # column name prefix
                            postfix: '_cents',    # column name  postfix
                            column_name: nil,     # full column name (overrides prefix, postfix and accessor name)
                            type: :integer,       # column type
@@ -34,7 +34,7 @@ MoneyRails.configure do |config|
                            default: nil
                          }
   #
-  config.currency_column = { prefix: '',
+  config.currency_column = { prefix: 'RUB',
                              postfix: '_currency',
                              column_name: nil,
                              type: :string,
@@ -47,25 +47,11 @@ MoneyRails.configure do |config|
     sign_before_symbol: true
   }
 
-  config.register_currency = {
-    :priority            => 1,
-    :iso_code            => "CHF",
-    :name                => "Swiss Franc",
-    :symbol              => "CHF",
-    :alternate_symbols   => ["Fr", "SFr"],
-    :subunit             => "Rappen",
-    :subunit_to_unit     => 100,
-    :symbol_first        => true,
-    :html_entity         => "",
-    :decimal_mark        => ".",
-    :thousands_separator => ",",
-    :iso_numeric         => "756"
-  }
 
   # Russian ruble is not yet available wide enough
   # The Unicode consortium officially designated a code point, U+20BD RUBLE SIGN, ₽, for the new symbol in Unicode 7.0, released 2014-06-16
   config.register_currency = {
-    priority:               100,
+    priority:               1,
     iso_code:               "RUB",
     name:                   "Russian Ruble",
     symbol:                 "RUB",

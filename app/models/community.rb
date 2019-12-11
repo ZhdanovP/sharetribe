@@ -557,7 +557,7 @@ class Community < ApplicationRecord
     if options[:with_protocol]
       dom = "#{(APP_CONFIG.always_use_ssl.to_s == "true" ? "https://" : "http://")}#{dom}"
     end
-
+    print domain  # Sultan's added
     return dom
 
   end

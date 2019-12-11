@@ -1135,7 +1135,7 @@ en:
       event_wo_online_payment: "Event without online payment"
       default_action_button_labels:
         sell: Buy
-        rent: Rent
+        rent: Арендовать
         request: Offer
         offer: Request
         inquiry: Contact
