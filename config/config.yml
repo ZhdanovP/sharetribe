@@ -1,0 +1,24 @@
+# Locally override default configurations
+#
+# This file overrides configurations set in `config/config.defaults.yml`.
+# Keep in mind that environment variables override setting in this file.
+#
+# Usage:
+#
+# Copy this file from `config/config.example.yml` to `config/config.yml`
+#
+
+development:
+  mail_delivery_method: smtp
+  # Add local `development` environment configuration overrides here
+
+test:
+  # Add local `test` environment configuration overrides here
+
+staging:
+  # Add local `staging` environment configuration overrides here
+
+production:
+  mail_delivery_method: smtp
+  secret_key_base: 4315e4eb1357000ecced70c22c9a7fbddf6c212267f4e66460441899049747dad327978484d905a571bae3471fa6f57ea930edcaf18da72bb5943d265383f24e
+# Add local `production` environment configuration overrides here
