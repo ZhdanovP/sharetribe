@@ -25,7 +25,7 @@ gem 'sass', '~> 3.4.24'
 gem 'rack-attack', '~> 6.0.0'
 gem 'rest-client', '~> 2.0.2'
 gem 'puma', '~> 4.2.1'
-gem 'paperclip', '~> 5.2.1'
+gem 'paperclip', '~> 6.0.0'
 gem 'delayed_paperclip', '~> 3.0.1'
 
 # Active Storage
